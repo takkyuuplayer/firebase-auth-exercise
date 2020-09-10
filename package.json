@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/takkyuuplayer/firebase-auth-exercise/issues"
   },
-  "homepage": "https://github.com/takkyuuplayer/firebase-auth-exercise#readme"
+  "homepage": "https://github.com/takkyuuplayer/firebase-auth-exercise#readme",
+  "dependencies": {
+    "firebase": "^7.19.1"
+  }
 }
