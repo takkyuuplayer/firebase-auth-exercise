@@ -11,7 +11,10 @@ export default function Home() {
         <title>{siteTitle}</title>
       </Head>
       {!loading && user ? (
-        <button onClick={() => logout()}>Logout</button>
+        <>
+          <button onClick={() => logout()}>Logout</button>
+          <pre> You're logged in as: {JSON.stringify(user, null, "  ")} </pre>
+        </>
       ) : (
         <button onClick={() => loginWithGoogle()}>Login with Google</button>
       )}
