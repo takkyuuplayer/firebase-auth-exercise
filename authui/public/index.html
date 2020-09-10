@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=2048, initial-scale=1.0" />
+    <title>Firebase Auth Exercise</title>
+    <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css"
+    />
+    <meta
+      name="google-signin-client_id"
+      content="528404982620-o96b7tdd9lrckn44i4mmdorb1q4b4h11.apps.googleusercontent.com"
+    />
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+  </head>
+  <body>
+    <h1>Firebase Auth Exercise</h1>
+    <div>
+      This page is made by
+      <a href="https://firebase.google.com/docs/auth/web/firebaseui"
+        >Easily add sign-in to your Web app with FirebaseUI</a
+      >
+    </div>
+    <div id="firebaseui-auth-container"></div>
+    <div id="loader">Loading...</div>
+    <pre id="firebase"></pre>
+
+    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-auth.js"></script>
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyC474zHM1SoHR39bbWGquN56XLB52ltCbo",
+        authDomain: "fir-auth-exercise-4a98f.firebaseapp.com",
+        databaseURL: "https://fir-auth-exercise-4a98f.firebaseio.com",
+        projectId: "fir-auth-exercise-4a98f",
+        storageBucket: "fir-auth-exercise-4a98f.appspot.com",
+        messagingSenderId: "528404982620",
+        appId: "1:528404982620:web:184ad3a8f381bead8cef99",
+        measurementId: "G-VP41M303B4",
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      firebase.analytics();
+
+      // Initialize the FirebaseUI Widget using Firebase.
+      var ui = new firebaseui.auth.AuthUI(firebase.auth());
+      var uiConfig = {
+        callbacks: {
+          signInSuccessWithAuthResult: function (authResult, redirectUrl) {
+            document.getElementById("firebase").innerText = JSON.stringify(
+              authResult,
+              null,
+              "  "
+            );
+            return;
+          },
+          uiShown: function () {
+            document.getElementById("loader").style.display = "none";
+          },
+        },
+        // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
+        signInFlow: "popup",
+        signInSuccessUrl: "<url-to-redirect-to-on-success>",
+        signInOptions: [
+          // Leave the lines as is for the providers you want to offer your users.
+          {
+            provider: firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+          },
+        ],
+      };
+      ui.start("#firebaseui-auth-container", uiConfig);
+    </script>
+    <hr />
+    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+    <script>
+      function onSignIn(googleUser) {
+        var profile = googleUser.getBasicProfile();
+        document.getElementById("google").innerText = JSON.stringify(
+          googleUser,
+          null,
+          "  "
+        );
+      }
+    </script>
+    <pre id="google"></pre>
+  </body>
+</html>
