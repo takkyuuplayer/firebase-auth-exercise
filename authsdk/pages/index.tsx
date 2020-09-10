@@ -1,8 +1,6 @@
 import { useAuthState } from "react-firebase-hooks/auth";
 import Head from "next/head";
 import Layout, { siteTitle } from "../components/layout";
-import { getSortedPostsData } from "../lib/posts";
-import { GetStaticProps } from "next";
 import { loginWithGoogle, getAuth, logout } from "../lib/firebaseHelper";
 
 export default function Home() {
@@ -15,17 +13,8 @@ export default function Home() {
       {!loading && user ? (
         <button onClick={() => logout()}>Logout</button>
       ) : (
-        <button onClick={() => loginWithGoogle()}>Login</button>
+        <button onClick={() => loginWithGoogle()}>Login with Google</button>
       )}
     </Layout>
   );
 }
-
-export const getStaticProps: GetStaticProps = async () => {
-  const allPostsData = getSortedPostsData();
-  return {
-    props: {
-      allPostsData,
-    },
-  };
-};
